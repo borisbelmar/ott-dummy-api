@@ -14,8 +14,8 @@ Router.get('/', async (req, res) => {
 Router.get('/:publicId', async (req, res) => {
     const { publicId } = req.params;
     try {
-        const data = await Media.find({ publicId });
-        res.status(200).send(data);
+        const data = await Media.findOne({ publicId });
+        data ? res.status(200).send(data) : res.sendStatus(404);
     } catch(err) {
         res.status(500).send(err);
     }
