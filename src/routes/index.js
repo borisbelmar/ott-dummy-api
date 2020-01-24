@@ -12,6 +12,39 @@ Router.get('/', async (req, res) => {
     }
 })
 
+Router.get('/limit/:limit', async (req, res) => {
+    const { limit } = req.params;
+    try {
+        const data = await Media.find().sort({ publicId : 1 }).limit(parseInt(limit)).exec();
+        res.status(200).send(data);
+    } catch(err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+})
+
+Router.get('/limit/:limit/reverse', async (req, res) => {
+    const { limit } = req.params;
+    try {
+        const data = await Media.find().sort({ publicId : -1 }).limit(parseInt(limit)).exec();
+        res.status(200).send(data);
+    } catch(err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+})
+
+Router.get('/skip/:skip', async (req, res) => {
+    const { skip } = req.params;
+    try {
+        const data = await Media.find().sort({ publicId : 1 }).skip(parseInt(skip)).exec();
+        res.status(200).send(data);
+    } catch(err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+})
+
 Router.get('/:publicId', async (req, res) => {
     const { publicId } = req.params;
     try {
