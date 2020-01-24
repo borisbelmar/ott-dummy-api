@@ -4,9 +4,10 @@ const Media = require('../models/Media');
 
 Router.get('/', async (req, res) => {
     try {
-        const data = await Media.find();
+        const data = await Media.find().sort({ publicId : 1 }).exec();
         res.status(200).send(data);
     } catch(err) {
+        console.log(err);
         res.status(500).send(err);
     }
 })
